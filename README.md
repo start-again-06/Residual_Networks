@@ -1,105 +1,97 @@
 🧠 ResNet-50 from Scratch with TensorFlow/Keras
-This repository demonstrates how to build the ResNet-50 architecture from the ground up using TensorFlow and Keras Functional API. It walks through every component, from custom residual blocks to end-to-end model training, validation, and inference.
+This project demonstrates how to build the ResNet-50 architecture entirely from scratch using TensorFlow 2.x and Keras. It covers every major component, including residual blocks, architecture design, training routines, and evaluation strategies.
 
-🚀 What You'll Learn
-🔨 How to construct residual blocks:
+📌 Overview
+Framework: TensorFlow 2.x with Keras
 
-Identity Block
+Model: ResNet-50 (50-layer Residual Network)
 
-Convolutional Block
+Architecture Type: Deep Residual CNN with Identity & Convolutional Blocks
 
-🧱 How to stack these blocks to build a full ResNet-50 architecture
+Dataset: Custom image dataset with 6 classes
 
-🧪 How to verify correctness using public test cases
+Input Shape: (64, 64, 3)
 
-🧼 How to preprocess image data and perform one-hot encoding
+Output: Softmax over 6 classes
 
-📊 How to train, evaluate, and predict using the model
+🧱 Model Architecture
+The ResNet-50 architecture contains the following key components:
 
-🧬 Architecture Breakdown
-The network follows a simplified ResNet-50 layout:
+Initial Layers
+Zero-padding
 
-Input: 64x64 RGB images
+Convolution (7×7), BatchNorm, ReLU
 
-Initial Stem: Convolution → BatchNorm → ReLU → MaxPooling
+MaxPooling
 
-Residual Stages:
+Residual Stages
+Stage 1: 1 convolutional block + 2 identity blocks
 
-Stage 1: 1 conv block + 2 identity blocks
+Stage 2: 1 convolutional block + 3 identity blocks
 
-Stage 2: 1 conv block + 3 identity blocks
+Stage 3: 1 convolutional block + 5 identity blocks
 
-Stage 3: 1 conv block + 5 identity blocks
+Stage 4: 1 convolutional block + 2 identity blocks
 
-Stage 4: 1 conv block + 2 identity blocks
+Final Layers
+Average Pooling
 
-Output: Average Pooling → Flatten → Dense → Softmax
+Fully Connected Dense Layer with Softmax activation
 
-📁 Repository Structure
-resnets_utils.py – Utilities for data loading and one-hot encoding
+Each block uses skip connections to preserve gradient flow and combat vanishing gradients.
 
-test_utils.py / public_tests.py – Unit tests for building blocks
-
-outputs.py – Reference outputs for test case comparison
-
-main.ipynb or script – Full model definition and training pipeline
-
-📦 Dataset Overview
-6-class custom image classification dataset
-
-Normalized input images ([0, 1] range)
-
-Labels converted to one-hot vectors
-
-Split into training and testing subsets
-
-🏋️‍♂️ Training Configuration
+📂 Project Structure
+bash
+Copy
+Edit
+├── resnets_utils.py         # Data preprocessing & helper functions
+├── test_utils.py            # Summary and tensor comparison tools
+├── public_tests.py          # Unit tests for identity & conv blocks
+├── outputs.py               # Stored reference tensors
+├── images/                  # Custom images for prediction
+└── main_script.py / notebook.ipynb
+🧪 Training Setup
 Parameter	Value
 Optimizer	Adam
 Loss Function	Categorical Crossentropy
-Batch Size	32
 Epochs	10
-Metrics	Accuracy
+Batch Size	32
+Metric	Accuracy
 
-🔍 Model Evaluation
-After training, the model is evaluated on a held-out test set to measure:
+Training is performed on normalized images (pixel values divided by 255).
 
-✅ Loss
+Labels are one-hot encoded for multiclass classification.
 
-✅ Accuracy
+📈 Evaluation Strategy
+Use model.evaluate() to compute loss and accuracy.
 
-A pre-trained model (.h5 file) can be loaded to skip training and go directly to evaluation.
+Optionally, load a pre-trained .h5 model for inference.
 
-🖼️ Predict on Custom Images
-Easily test your trained model on your own image files:
+Results include loss value and test accuracy.
 
-Resize to 64x64
+🖼️ Image Prediction Flow
+To classify new images:
 
-Normalize pixel values
+Load and resize image to 64x64
 
-Run prediction using the .predict() method
+Convert to NumPy array and normalize
 
-Output is a 6-dimensional softmax vector
+Predict using the trained model
 
-🧪 Testing & Validation
-To ensure correctness, the model passes:
+Output class probabilities and predicted label
 
-✅ Public unit tests for residual blocks
+✅ Testing & Validation
+Identity and convolutional blocks are validated using public_tests.py
 
-✅ Shape and value checks against known outputs
+Output tensors are compared with reference values
 
-✅ Architecture comparison via layer summaries
+Full model structure is verified with model.summary()
 
-📊 Visualization Tools
-🖼️ Visualize training curves using Matplotlib
+🔍 Visualization
+Generate architectural diagrams with plot_model()
 
-📋 View network summary with model.summary()
-
-🔄 Graph architecture with:
-
-plot_model()
-
-model_to_dot() (SVG support)
+View individual layers and shapes using model.summary()
 
 📚 References
-He et al., Deep Residual Learning for Image Recognition
+He, K., Zhang, X., Ren, S., & Sun, J. (2015).
+Deep Residual Learning for Image Recognition
