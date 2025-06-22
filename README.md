@@ -1,97 +1,103 @@
-🧠 ResNet-50 from Scratch with TensorFlow/Keras
-This project demonstrates how to build the ResNet-50 architecture entirely from scratch using TensorFlow 2.x and Keras. It covers every major component, including residual blocks, architecture design, training routines, and evaluation strategies.
+# 🧠 ResNet-50 from Scratch with TensorFlow/Keras
 
-📌 Overview
-Framework: TensorFlow 2.x with Keras
+This project demonstrates how to build the **ResNet-50 architecture** entirely from scratch using TensorFlow 2.x and Keras. It covers every major component, including residual blocks, architecture design, training routines, and evaluation strategies.
 
-Model: ResNet-50 (50-layer Residual Network)
+---
 
-Architecture Type: Deep Residual CNN with Identity & Convolutional Blocks
+## 📌 Overview
 
-Dataset: Custom image dataset with 6 classes
+- **Framework**: TensorFlow 2.x with Keras
+- **Model**: ResNet-50 (50-layer Residual Network)
+- **Architecture Type**: Deep Residual CNN with Identity & Convolutional Blocks
+- **Dataset**: Custom image dataset with 6 classes
+- **Input Shape**: (64, 64, 3)
+- **Output**: Softmax over 6 classes
 
-Input Shape: (64, 64, 3)
+---
 
-Output: Softmax over 6 classes
+## 🧱 Model Architecture
 
-🧱 Model Architecture
 The ResNet-50 architecture contains the following key components:
 
-Initial Layers
-Zero-padding
+- **Initial Layers**:
+  - Zero-padding
+  - Convolution (7×7), BatchNorm, ReLU
+  - MaxPooling
 
-Convolution (7×7), BatchNorm, ReLU
+- **4 Main Stages**:
+  - **Stage 1**: 1 convolutional block + 2 identity blocks
+  - **Stage 2**: 1 convolutional block + 3 identity blocks
+  - **Stage 3**: 1 convolutional block + 5 identity blocks
+  - **Stage 4**: 1 convolutional block + 2 identity blocks
 
-MaxPooling
+- **Final Layers**:
+  - AveragePooling
+  - Fully Connected Dense Layer (Softmax)
 
-Residual Stages
-Stage 1: 1 convolutional block + 2 identity blocks
+Each block uses skip connections to allow gradient flow during training.
 
-Stage 2: 1 convolutional block + 3 identity blocks
+---
 
-Stage 3: 1 convolutional block + 5 identity blocks
+## 📂 Project Structure
 
-Stage 4: 1 convolutional block + 2 identity blocks
-
-Final Layers
-Average Pooling
-
-Fully Connected Dense Layer with Softmax activation
-
-Each block uses skip connections to preserve gradient flow and combat vanishing gradients.
-
-📂 Project Structure
-bash
-Copy
-Edit
+```
 ├── resnets_utils.py         # Data preprocessing & helper functions
 ├── test_utils.py            # Summary and tensor comparison tools
 ├── public_tests.py          # Unit tests for identity & conv blocks
 ├── outputs.py               # Stored reference tensors
 ├── images/                  # Custom images for prediction
 └── main_script.py / notebook.ipynb
-🧪 Training Setup
-Parameter	Value
-Optimizer	Adam
-Loss Function	Categorical Crossentropy
-Epochs	10
-Batch Size	32
-Metric	Accuracy
+```
 
-Training is performed on normalized images (pixel values divided by 255).
+---
 
-Labels are one-hot encoded for multiclass classification.
+## 🧪 Training Setup
 
-📈 Evaluation Strategy
-Use model.evaluate() to compute loss and accuracy.
+| Parameter         | Value                    |
+|------------------|--------------------------|
+| Optimizer        | Adam                     |
+| Loss Function    | Categorical Crossentropy |
+| Epochs           | 10                       |
+| Batch Size       | 32                       |
+| Metric           | Accuracy                 |
 
-Optionally, load a pre-trained .h5 model for inference.
+Training is performed on normalized data (divided by 255), with labels one-hot encoded.
 
-Results include loss value and test accuracy.
+---
 
-🖼️ Image Prediction Flow
-To classify new images:
+## 📈 Evaluation Strategy
 
-Load and resize image to 64x64
+- Performance is evaluated using `model.evaluate()`
+- The model can also be tested using a pre-trained `.h5` file
+- Results are printed with loss and accuracy
 
-Convert to NumPy array and normalize
+---
 
-Predict using the trained model
+## 🖼️ Image Prediction Flow
 
-Output class probabilities and predicted label
+To make predictions on new images:
 
-✅ Testing & Validation
-Identity and convolutional blocks are validated using public_tests.py
+1. Load the image and resize to 64x64
+2. Convert to array and normalize
+3. Use the trained model to predict the class
+4. Output the class index and softmax vector
 
-Output tensors are compared with reference values
+---
 
-Full model structure is verified with model.summary()
+## ✅ Testing & Validation
 
-🔍 Visualization
-Generate architectural diagrams with plot_model()
+- Unit tests are provided for both identity and convolutional blocks
+- The model’s architecture is validated using shape summaries
+- The final model structure is compared with reference outputs
 
-View individual layers and shapes using model.summary()
+---
 
-📚 References
+## 🔍 Visualization
+
+Use Keras utilities to generate architecture plots:
+
+- Visualize the model with `plot_model()`
+
+## 📚 References
 He, K., Zhang, X., Ren, S., & Sun, J. (2015).
 Deep Residual Learning for Image Recognition
