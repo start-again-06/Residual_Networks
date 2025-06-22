@@ -1,44 +1,29 @@
-# 🧠 ResNet-50 from Scratch with TensorFlow/Keras
+🧠 ResNet-50 from Scratch with TensorFlow/Keras
+This repository demonstrates how to build the ResNet-50 architecture from the ground up using TensorFlow and Keras Functional API. It walks through every component, from custom residual blocks to end-to-end model training, validation, and inference.
 
-This repository implements a simplified ResNet-50 architecture using the TensorFlow/Keras Functional API, built and trained on a 6-class custom image dataset. It covers both the theoretical and practical aspects of deep residual learning.
-
-📌 Key Highlights
-
-✔️ Custom implementation of Residual Blocks:
+🚀 What You'll Learn
+🔨 How to construct residual blocks:
 
 Identity Block
 
 Convolutional Block
 
-✔️ Construction of the full ResNet-50 architecture
+🧱 How to stack these blocks to build a full ResNet-50 architecture
 
-✔️ Includes:
+🧪 How to verify correctness using public test cases
 
-Data preprocessing
+🧼 How to preprocess image data and perform one-hot encoding
 
-Model training
+📊 How to train, evaluate, and predict using the model
 
-Evaluation
+🧬 Architecture Breakdown
+The network follows a simplified ResNet-50 layout:
 
-Inference on custom images
+Input: 64x64 RGB images
 
-✔️ Validated with predefined public test cases
+Initial Stem: Convolution → BatchNorm → ReLU → MaxPooling
 
-📁 Project Structure
-
-resnets_utils.py: Helper functions for dataset loading, preprocessing, and one-hot encoding.
-
-test_utils.py / public_tests.py: Used to validate the correctness of identity/convolution blocks and ResNet-50 structure.
-
-main notebook/script: Implements the ResNet-50 model using custom building blocks and runs training, evaluation, and prediction.
-
-🧠 ResNet-50 Architecture Overview
-
-Input image size: 64x64x3
-
-Conv and max-pooling layers as initial stem
-
-4 stages with bottleneck residual blocks:
+Residual Stages:
 
 Stage 1: 1 conv block + 2 identity blocks
 
@@ -48,64 +33,73 @@ Stage 3: 1 conv block + 5 identity blocks
 
 Stage 4: 1 conv block + 2 identity blocks
 
-Final classification via average pooling and fully connected softmax layer
+Output: Average Pooling → Flatten → Dense → Softmax
 
-📊 Dataset Information
+📁 Repository Structure
+resnets_utils.py – Utilities for data loading and one-hot encoding
 
-6-class image classification problem
+test_utils.py / public_tests.py – Unit tests for building blocks
 
-Dataset is split into training and testing sets
+outputs.py – Reference outputs for test case comparison
 
-Images are normalized and labels one-hot encoded before training
+main.ipynb or script – Full model definition and training pipeline
 
-🏋️ Model Training
+📦 Dataset Overview
+6-class custom image classification dataset
 
-Optimizer: Adam
+Normalized input images ([0, 1] range)
 
-Loss Function: Categorical Crossentropy
+Labels converted to one-hot vectors
 
-Batch Size: 32
+Split into training and testing subsets
 
-Epochs: 10
+🏋️‍♂️ Training Configuration
+Parameter	Value
+Optimizer	Adam
+Loss Function	Categorical Crossentropy
+Batch Size	32
+Epochs	10
+Metrics	Accuracy
 
-Metrics: Accuracy
+🔍 Model Evaluation
+After training, the model is evaluated on a held-out test set to measure:
 
-📈 Evaluation
+✅ Loss
 
-After training, the model is evaluated on the test dataset to report:
+✅ Accuracy
 
-Loss
+A pre-trained model (.h5 file) can be loaded to skip training and go directly to evaluation.
 
-Accuracy
+🖼️ Predict on Custom Images
+Easily test your trained model on your own image files:
 
-You can also load a pre-trained .h5 model and evaluate it directly on the same test set.
+Resize to 64x64
 
-🖼️ Predict Custom Image
+Normalize pixel values
 
-The trained model supports predicting classes for custom input images. Input images must be resized to 64x64, preprocessed, and passed into the model for prediction.
+Run prediction using the .predict() method
+
+Output is a 6-dimensional softmax vector
 
 🧪 Testing & Validation
+To ensure correctness, the model passes:
 
-Residual blocks and network architecture are verified using public test cases.
+✅ Public unit tests for residual blocks
 
-Structural comparisons are done via string summaries of the layer configurations.
+✅ Shape and value checks against known outputs
 
-🖼️ Visualization
+✅ Architecture comparison via layer summaries
 
-Training loss and accuracy can be plotted using Matplotlib.
+📊 Visualization Tools
+🖼️ Visualize training curves using Matplotlib
 
-Model architecture visualization available using tools like:
+📋 View network summary with model.summary()
 
-model.summary()
+🔄 Graph architecture with:
 
-plot_model() (optional)
+plot_model()
 
-model_to_dot() (optional)
+model_to_dot() (SVG support)
 
 📚 References
-
-Deep Residual Learning for Image Recognition – He et al.
-
-📜 License
-
-This project is licensed under the MIT License and is intended for educational use.
+He et al., Deep Residual Learning for Image Recognition
