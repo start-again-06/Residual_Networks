@@ -99,5 +99,4 @@ Use Keras utilities to generate architecture plots:
 - Visualize the model with `plot_model()`
 
 ## 📚 References
-He, K., Zhang, X., Ren, S., & Sun, J. (2015).
-Deep Residual Learning for Image Recognition
+- [Deep Residual Learning for Image Recognition – He et al.](https://arxiv.org/abs/1512.03385)
