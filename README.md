@@ -154,6 +154,3 @@ The model is implemented using the **Keras Functional API** with explicit skip c
 ## License
 This project is intended for educational and research purposes.  
 Free to use and modify with proper attribution.
-
-
-## File Overview
